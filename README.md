@@ -14,6 +14,10 @@ This project focuses on music generation using machine learning techniques.
 - `notebooks/`: Jupyter notebooks for exploration and analysis
   - `exploratory.ipynb`: Initial data exploration
 - `src/`: Source code for the project
+  - `data/`: Code for data acquisition and preprocessing (consider to delete this folder if needed in the future if it overlaps with preprocess.py)
+    - `raw`: Script to download or generate the dataset
+    - `processed`: Script to process data from raw to processed in to the /data/processed folder
+        - feature_extraction.py: Script to extract features from audio files
   - `models/`: Code for model definitions and training
     - `train_model.py`: Script for training models
     - `evaluate_model.py`: Script for evaluating models
