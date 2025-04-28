@@ -1,1 +1,50 @@
- 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Large data files
+data/raw/fma_metadata/*
+!data/raw/fma_metadata/.gitkeep
+data/raw/fma_audio/*
+!data/raw/fma_audio/.gitkeep
+data/processed/fma_features/*
+!data/processed/fma_features/.gitkeep
+
+# Model files
+models/*
+!models/.gitkeep
+
+# Figure outputs
+figures/*
+!figures/.gitkeep 
+
+
+# journals
+docs/Journals/*
+
+
+
