@@ -48,7 +48,8 @@ MODEL_PARAMS = {
     "epochs": 1,
     "weight_decay": 0.01,
     "gradient_accumulation_steps": 4,
-    "model_checkpoint": "facebook/w2v-bert-2.0" # double check this model later
+    "model_checkpoint": "MIT/ast-finetuned-audioset-10-10-0.4593"
+    # "model_checkpoint": "facebook/w2v-bert-2.0" # if AST use: "MIT/ast-finetuned-audioset-10-10-0.4593" 
 } 
 
 # --- Device ---
