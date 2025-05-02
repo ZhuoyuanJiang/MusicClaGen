@@ -2,6 +2,7 @@
 Configuration settings for the music generation project.
 """
 import os
+import torch 
 
 # Define project root directory
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -12,10 +13,12 @@ PATHS = {
     'DATA_DIR': os.path.join(PROJECT_ROOT, 'data'),
     'RAW_DATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw'),
     'PROCESSED_DATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'processed'),
+    'MANIFEST_PATH': os.path.join(PROJECT_ROOT, 'data', 'processed', 'final_feature_manifest.csv'), # Adding manifest path
     'AUDIO_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_audio', 'fma_small'),
     'METADATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata'),
     'TRACKS_PATH': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata', 'tracks.csv'),
     'GENRES_PATH': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata', 'genres.csv'),
+    'GENRE_LIST_PATH': os.path.join(PROJECT_ROOT, 'data', 'processed', 'unified_genres.txt'),
     'FEATURES_PATH': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata', 'features.csv'),
     'ECHONEST_PATH': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata', 'echonest.csv'),
     'MODELS_DIR': os.path.join(PROJECT_ROOT, 'models'),
@@ -40,11 +43,16 @@ PREPROCESSING_PARAMS["samples_per_segment"] = int(
 
 # Model parameters
 MODEL_PARAMS = {
-    "learning_rate": 0.001,
-    "batch_size": 64,
-    "epochs": 100,
-    "hidden_dim": 128
+    "learning_rate": 5e-5,
+    "batch_size": 2,
+    "epochs": 1,
+    "weight_decay": 0.01,
+    "gradient_accumulation_steps": 4,
+    "model_checkpoint": "facebook/w2v-bert-2.0" # double check this model later
 } 
+
+# --- Device ---
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Function to ensure directories exist
 def ensure_directories_exist():
