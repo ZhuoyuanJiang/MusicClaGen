@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import librosa
 import os
-import ast  # To parse the multi_hot_label string if needed
+import re  # For parsing the multi_hot_label strings
 import logging
 from tqdm import tqdm # For progress bar: pip install tqdm
 
@@ -40,6 +40,35 @@ def get_audio_path(audio_dir, track_id):
     """Constructs the path to an FMA audio file."""
     tid_str = '{:06d}'.format(track_id)
     return os.path.join(audio_dir, tid_str[:3], tid_str + '.mp3')
+
+def parse_numpy_array_string(array_str):
+    """
+    Parse strings like '[np.float32(1.0), np.float32(0.0), ...]' into a list of integers.
+    This is needed because ast.literal_eval cannot handle 'np.float32()' in the string.
+    """
+    if not isinstance(array_str, str):
+        return []
+    
+    try:
+        # Extract all the float values using regular expressions
+        float_matches = re.findall(r'np\.float32\((\d+\.\d+)\)', array_str)
+        
+        # Convert matches to integers (1.0 -> 1, 0.0 -> 0)
+        values = []
+        for match in float_matches:
+            value = float(match)
+            # Convert to integer if it's 0.0 or 1.0
+            if value == 1.0:
+                values.append(1)
+            elif value == 0.0:
+                values.append(0)
+            else:
+                values.append(value)  # Keep as float if not 0 or 1
+                
+        return values
+    except Exception as e:
+        logging.warning(f"Error parsing array string: {e}")
+        return []
 
 def extract_mel_spectrogram(audio_path, params):
     """Loads audio, computes Log-Mel Spectrogram using parameters from config."""
@@ -147,7 +176,7 @@ def preprocess_audio_features():
     logging.info("--- Starting Feature Extraction ---")
 
     # --- Load the final metadata with multi-hot labels ---
-    metadata_path = os.path.join(config.PROCESSED_DATA_DIR, 'small_subset_multihot.csv')
+    metadata_path = os.path.join(config.PATHS['PROCESSED_DATA_DIR'], 'small_subset_multihot.csv')
     if not os.path.exists(metadata_path):
         logging.error(f"Metadata file not found: {metadata_path}. Run label processing first.")
         return
@@ -158,14 +187,9 @@ def preprocess_audio_features():
         metadata_df = pd.read_csv(metadata_path, index_col='track_id')
 
         # --- CRITICAL: Parse the 'multi_hot_label' string back into a list/array ---
-        # The .to_csv likely saved the list as its string representation.
-        # We use ast.literal_eval to safely convert it back.
-        metadata_df['multi_hot_label'] = metadata_df['multi_hot_label'].apply(ast.literal_eval)
+        # Replace ast.literal_eval with our custom parser
+        metadata_df['multi_hot_label'] = metadata_df['multi_hot_label'].apply(parse_numpy_array_string)
         
-        
-        # Considering converting inner list to numpy array (if needed downstream), keep as list is fine too. so if want to convert, uncomment the following line.
-        # metadata_df['multi_hot_label'] = metadata_df['multi_hot_label'].apply(np.array)
-
         logging.info(f"Loaded and parsed metadata for {len(metadata_df)} tracks.")
         logging.info("Example parsed label vector:")
         # Display first element to check format
@@ -176,7 +200,7 @@ def preprocess_audio_features():
         return
 
     # --- Create output directory for features ---
-    features_output_dir = config.FMA_FEATURES_DIR
+    features_output_dir = config.PATHS['FMA_FEATURES_DIR']
     os.makedirs(features_output_dir, exist_ok=True)
     logging.info(f"Ensured processed features directory exists: {features_output_dir}")
 
@@ -240,7 +264,7 @@ def preprocess_audio_features():
     # Reorder columns for clarity
     manifest_df = manifest_df[['track_id', 'feature_path', 'label_vector', 'split']]
 
-    manifest_path = os.path.join(config.PROCESSED_DATA_DIR, 'final_feature_manifest.csv')
+    manifest_path = os.path.join(config.PATHS['PROCESSED_DATA_DIR'], 'final_feature_manifest.csv')
     try:
         # Save the manifest mapping track IDs to feature paths and labels
         manifest_df.to_csv(manifest_path, index=False)
