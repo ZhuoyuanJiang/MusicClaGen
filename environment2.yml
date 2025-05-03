@@ -1,0 +1,173 @@
+# IMPORTANT: This file has been modified for compatibility with Vast.ai Docker environments.
+# - Conda CUDA packages and build strings removed.
+# - Pip NVIDIA/PyTorch packages removed.
+# AFTER creating the environment with this file (using conda/mamba env create),
+# you MUST activate it and install PyTorch/Torchvision/Torchaudio separately
+# using the command from pytorch.org, matching the CUDA version of the Vast.ai container.
+name: musicClaGen_env22
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+dependencies:
+  - _libgcc_mutex=0.1 # Maintained original format for mutex
+  - _openmp_mutex=5.1 # Maintained original format for mutex
+  - asttokens=3.0.0
+  - blas=1.0
+  - bzip2=1.0.8
+  - ca-certificates=2025.4.26
+  - comm=0.2.2
+  - debugpy=1.6.0
+  - decorator=5.2.1
+  - entrypoints=0.4
+  - exceptiongroup=1.2.2
+  - executing=2.2.0
+  - ffmpeg=4.3
+  - freetype=2.13.3
+  - giflib=5.2.2
+  - gmp=6.3.0
+  - gmpy2=2.2.1
+  - gnutls=3.6.15
+  - intel-openmp=2025.0.0
+  - ipykernel=6.20.2
+  - ipython=8.36.0
+  - jedi=0.19.2
+  - jpeg=9e
+  - jupyter_client=7.3.4
+  - jupyter_core=5.7.2
+  - lame=3.100
+  - ld_impl_linux-64=2.40 # Maintained original format for linker impl
+  - lerc=4.0.0
+  - libdeflate=1.22
+  - libffi=3.4.4
+  - libgcc-ng=11.2.0 # Maintained original format for system lib
+  - libgomp=11.2.0 # Maintained original format for system lib
+  - libiconv=1.16
+  - libidn2=2.3.4
+  - libjpeg-turbo=2.0.0
+  - libpng=1.6.39
+  - libsodium=1.0.18
+  - libstdcxx-ng=11.2.0 # Maintained original format for system lib
+  - libtasn1=4.19.0
+  - libtiff=4.7.0
+  - libunistring=0.9.10
+  - libuuid=1.41.5
+  - libwebp=1.3.2
+  - libwebp-base=1.3.2
+  # - llvm-openmp=14.0.6 # Often causes issues if base image has different omp, commenting out
+  - lz4-c=1.9.4
+  - matplotlib-inline=0.1.7
+  - mkl=2025.0.0
+  - mpc=1.3.1
+  - mpfr=4.2.1
+  - mpmath=1.3.0
+  - ncurses=6.4
+  - nest-asyncio=1.6.0
+  - nettle=3.7.3
+  - networkx=3.4.2
+  - ocl-icd=2.3.2
+  - openh264=2.1.1
+  - openssl=3.0.16
+  - packaging=25.0
+  - parso=0.8.4
+  - pexpect=4.9.0
+  - pickleshare=0.7.5
+  - pip=25.0
+  - platformdirs=4.3.7
+  - prompt-toolkit=3.0.51
+  - psutil=5.9.1
+  - ptyprocess=0.7.0
+  - pure_eval=0.2.3
+  - pygments=2.19.1
+  - python=3.10.16
+  - python-dateutil=2.9.0.post0
+  - python_abi=3.10 # Maintained original format
+  - pyzmq=23.0.0
+  - readline=8.2
+  - setuptools=75.8.0
+  - six=1.17.0
+  - sqlite=3.45.3
+  - stack_data=0.6.3
+  - sympy=1.13.3
+  - tbb=2022.0.0
+  - tbb-devel=2022.0.0
+  - tk=8.6.14
+  - tornado=6.1
+  - traitlets=5.14.3
+  - typing_extensions=4.13.2
+  - wcwidth=0.2.13
+  - wheel=0.45.1
+  - xz=5.6.4
+  - zeromq=4.3.4
+  - zlib=1.2.13
+  - zstd=1.5.6
+  - pip:
+      - accelerate==1.6.0
+      - aiohappyeyeballs==2.6.1
+      - aiohttp==3.11.18
+      - aiosignal==1.3.2
+      - async-timeout==5.0.1
+      - attrs==25.3.0
+      - audioread==3.0.1
+      - bitsandbytes==0.45.5
+      - certifi==2025.4.26
+      - cffi==1.17.1
+      - charset-normalizer==3.4.1
+      - cmake==4.0.0
+      - contourpy==1.3.2
+      - cycler==0.12.1
+      - datasets==3.5.0
+      # - dill==0.3.8 # Often causes issues if different versions exist, commenting out unless needed
+      - filelock==3.18.0
+      - fonttools==4.57.0
+      - frozenlist==1.6.0
+      - fsspec==2024.12.0
+      - huggingface-hub==0.30.2
+      - idna==3.10
+      - jinja2==3.1.6
+      - joblib==1.4.2
+      - kiwisolver==1.4.8
+      - lazy-loader==0.4
+      - librosa==0.11.0
+      # - lit==18.1.8 # Related to llvmlite/numba, often better handled by conda/mamba if needed
+      # - llvmlite==0.44.0 # Related to numba, let conda handle if possible
+      - markupsafe==3.0.2
+      - matplotlib==3.10.1
+      - msgpack==1.1.0
+      - multidict==6.4.3
+      - multiprocess==0.70.16
+      # - numba==0.61.2 # Let conda handle if possible or install if needed
+      - numpy==1.24.3
+      - pandas==2.2.3
+      - pillow==11.2.1
+      - pooch==1.8.2
+      - propcache==0.3.1
+      - pyarrow==20.0.0
+      - pycparser==2.22
+      - pydot==3.0.4
+      - pyparsing==3.2.3
+      - python-dotenv==1.1.0
+      - pytz==2025.2
+      - pyyaml==6.0.2
+      - regex==2024.11.6
+      - requests==2.32.3
+      - resampy==0.4.3
+      - safetensors==0.5.3
+      - scikit-learn==1.6.1
+      - scipy==1.15.2
+      - seaborn==0.13.2
+      - soundfile==0.13.1
+      - soxr==0.5.0.post1
+      - threadpoolctl==3.6.0
+      - tokenizers==0.21.1
+      - tqdm==4.67.1
+      - transformers==4.51.3
+      - tzdata==2025.2
+      - urllib3==2.4.0
+      - utils==1.0.2
+      - xxhash==3.5.0
+      - yarl==1.20.0
+prefix: /home/zhuoyuan/miniconda3/envs/musicClaGen_env # This line is informational, conda create ignores it.
