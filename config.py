@@ -14,6 +14,7 @@ PATHS = {
     'RAW_DATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw'),
     'PROCESSED_DATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'processed'),
     'MANIFEST_PATH': os.path.join(PROJECT_ROOT, 'data', 'processed', 'final_feature_manifest.csv'), # Adding manifest path
+    'SMALL_MULTILABEL_PATH': os.path.join(PROJECT_ROOT, 'data', 'processed', 'small_subset_multihot.csv'),
     'AUDIO_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_audio', 'fma_small'),
     'METADATA_DIR': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata'),
     'TRACKS_PATH': os.path.join(PROJECT_ROOT, 'data', 'raw', 'fma_metadata', 'tracks.csv'),
@@ -48,8 +49,8 @@ MODEL_PARAMS = {
     "epochs": 1,
     "weight_decay": 0.01,
     "gradient_accumulation_steps": 4,
-    "model_checkpoint": "MIT/ast-finetuned-audioset-10-10-0.4593"
-    # "model_checkpoint": "facebook/w2v-bert-2.0" # if AST use: "MIT/ast-finetuned-audioset-10-10-0.4593" 
+    #"model_checkpoint": "MIT/ast-finetuned-audioset-10-10-0.4593"
+    "model_checkpoint": "facebook/w2v-bert-2.0" # if AST use: "MIT/ast-finetuned-audioset-10-10-0.4593" 
 } 
 
 # --- Device ---
