@@ -1,6 +1,7 @@
 name: musicClaGen_env
 channels:
   - pytorch
+  - nvidia 
   - conda-forge
   - defaults
   - https://repo.anaconda.com/pkgs/main

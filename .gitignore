@@ -50,3 +50,7 @@ docs/Journals/*
 
 # Data
 /data
+
+
+# model files
+facebook_w2v-bert-2.0_finetuned_best.pth

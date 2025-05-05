@@ -46,7 +46,7 @@ PREPROCESSING_PARAMS["samples_per_segment"] = int(
 MODEL_PARAMS = {
     "learning_rate": 5e-5,
     "batch_size": 2,
-    "epochs": 1,
+    "epochs": 2,
     "weight_decay": 0.01,
     "gradient_accumulation_steps": 4,
     #"model_checkpoint": "MIT/ast-finetuned-audioset-10-10-0.4593"
